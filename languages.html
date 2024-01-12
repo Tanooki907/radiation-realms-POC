@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Languages</title>
+</head>
+<body>
+  <form id="languagesForm">
+    <fieldset>
+      <legend>Select your languages:</legend>
+      <!-- Radio buttons will be dynamically populated based on INT attribute -->
+      <div id="languageOptions">
+        <!-- Options will be dynamically populated based on INT attribute -->
+      </div>
+    </fieldset>
+    <br>
+    <input type="submit" value="Save and Proceed">
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Define the available languages
+      var allLanguages = ["Arabic", "Binary", "English", "French", "German", "Italian", "Japanese", "Mandarin", "Morse Code", "Russian", "Sign Language", "Tribal"];
+
+        // Get the character's INT attribute from sessionStorage
+  var characterINT = parseInt(sessionStorage.getItem('INT')) || 0;
+
+// Exclude languages based on character's INT attribute
+var availableLanguages = allLanguages.slice(); // Create a copy of allLanguages
+if (characterINT <= 5) {
+  // Exclude certain languages for INT 5 or lower
+  var excludedLanguages = ["Mandarin", "Japanese", "Russian"];
+  availableLanguages = availableLanguages.filter(lang => !excludedLanguages.includes(lang));
+}
+
+// Create checkboxes for language selection based on character's INT attribute
+var languageOptionsDiv = document.getElementById('languageOptions');
+availableLanguages.forEach(lang => {
+  var input = document.createElement('input');
+  input.type = 'checkbox';
+  input.name = 'selectedLanguages';
+  input.value = lang;
+  input.id = lang.toLowerCase(); // Use lowercase language name as the id
+  var label = document.createElement('label');
+  label.htmlFor = lang.toLowerCase();
+  label.appendChild(document.createTextNode(lang));
+  languageOptionsDiv.appendChild(input);
+  languageOptionsDiv.appendChild(label);
+  languageOptionsDiv.appendChild(document.createElement('br'));
+});
+
+// Add event listener to restrict the number of checkboxes that can be checked
+var checkboxes = document.querySelectorAll('input[name="selectedLanguages"]');
+checkboxes.forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    var checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+    if (characterINT <= 5 && checkedCount > 1) {
+      this.checked = false;
+    } else if (characterINT === 6 && checkedCount > 2) {
+      this.checked = false;
+    } else if (characterINT === 8 && checkedCount > 3) {
+      this.checked = false;
+    } else if (characterINT === 10 && checkedCount > 4) {
+      this.checked = false;
+    }
+  });
+});
+
+// Add form submission event listener to save selected languages to sessionStorage
+document.getElementById('languagesForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+
+  // Save the selected languages to sessionStorage
+  var selectedLanguages = Array.from(document.querySelectorAll('input[name="selectedLanguages"]:checked'), input => input.value);
+  sessionStorage.setItem('selectedLanguages', JSON.stringify(selectedLanguages));
+
+  // Proceed to the next page or perform any other necessary action
+  window.location.href = 'skillsbg.html';
+});
+});
+  </script>
+</body>
+</html>

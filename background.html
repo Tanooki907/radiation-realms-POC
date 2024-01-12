@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fallout POC - Background Selection</title>
+  <script>
+    function saveBackgroundData() {
+      var selectedBackground = document.querySelector('input[name="background"]:checked').value;
+      sessionStorage.setItem('selectedBackground', selectedBackground);
+    }
+  </script>
+</head>
+<body>
+  <h2>Select Your Background:</h2>
+  <form onsubmit="saveBackgroundData()" action="special.html">
+    <div id="backgroundOptions">
+      <!-- Background options will be dynamically populated here based on the selected race -->
+    </div>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    // Retrieve the selected race from sessionStorage
+    var selectedRace = sessionStorage.getItem('selectedRace');
+
+    // Populate the background options based on the selected race
+    var backgroundOptions = document.getElementById('backgroundOptions');
+    if (selectedRace === 'Human') {
+      backgroundOptions.innerHTML = `
+        <input type="radio" id="background1" name="background" value="Isolationist">
+        <label for="background1">Isolationist</label><br>
+        <input type="radio" id="background2" name="background" value="Wanderer">
+        <label for="background2">Wanderer</label><br>
+        <input type="radio" id="background3" name="background" value="Wastelander">
+        <label for="background3">Wastelander</label><br>
+      `;
+    } else if (selectedRace === 'Ghoul') {
+      backgroundOptions.innerHTML = `
+        <input type="radio" id="background4" name="background" value="Old World Blues">
+        <label for="background4">Old World Blues</label><br>
+        <input type="radio" id="background5" name="background" value="Rigor Mortis">
+        <label for="background5">Rigor Mortis</label><br>
+        <input type="radio" id="background6" name="background" value="You're RADical">
+        <label for="background6">You're RADical</label><br>
+      `;
+    } else if (selectedRace === 'Synth') {
+      backgroundOptions.innerHTML = `
+        <input type="radio" id="background7" name="background" value="I Am Human">
+        <label for="background7">I Am Human</label><br>
+        <input type="radio" id="background8" name="background" value="I Am Superior">
+        <label for="background8">I Am Superior</label><br>
+        <input type="radio" id="background9" name="background" value="I Am War">
+        <label for="background9">I Am War</label><br>
+      `;
+    } else if (selectedRace === 'Eastern Super Mutant') {
+      backgroundOptions.innerHTML = `
+        <input type="radio" id="background10" name="background" value="Me Friend">
+        <label for="background10">Me Friend</label><br>
+        <input type="radio" id="background11" name="background" value="OVERLORD">
+        <label for="background11">OVERLORD</label><br>
+        <input type="radio" id="background12" name="background" value="Pain Good">
+        <label for="background12">Pain Good</label><br>
+      `;
+    } else if (selectedRace === 'Western Super Mutant') {
+      backgroundOptions.innerHTML = `
+        <input type="radio" id="background13" name="background" value="The NightKin">
+        <label for="background13">The NightKin</label><br>
+        <input type="radio" id="background14" name="background" value="The Scholar">
+        <label for="background14">The Scholar</label><br>
+        <input type="radio" id="background15" name="background" value="The Soldier">
+        <label for="background15">The Soldier</label><br>
+      `;
+    } else if (selectedRace === 'Mole Miner') {
+      backgroundOptions.innerHTML = `
+        <input type="radio" id="background16" name="background" value="Juggernaut">
+        <label for="background16">Juggernaut</label><br>
+        <input type="radio" id="background17" name="background" value="Purveyor">
+        <label for="background17">Purveyor</label><br>
+        <input type="radio" id="background18" name="background" value="Supervisor">
+        <label for="background18">Supervisor</label><br>
+      `;
+    } else if (selectedRace === 'Intelligent Deathclaw') {
+      backgroundOptions.innerHTML = `
+        <input type="radio" id="background19" name="background" value="Gatorclaw">
+        <label for="background19">Gatorclaw</label><br>
+        <input type="radio" id="background20" name="background" value="Hairy Deathclaw">
+        <label for="background20">Hairy Deathclaw</label><br>
+        <input type="radio" id="background21" name="background" value="Jackson Chameleon">
+        <label for="background21">Jackson Chameleon</label><br>
+      `;
+    }
+  </script>
+</body>
+</html>

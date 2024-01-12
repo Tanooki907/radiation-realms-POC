@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Tagging</title>
+</head>
+<body>
+  <h2>Skill Tagging</h2>
+  <p>Select a number of skills to tag based on your selected race.</p>
+  <form id="skillsForm">
+    <div id="skillOptions">
+      <!-- Skill options with current level will be dynamically generated based on the selected race -->
+    </div>
+    <br>
+    <button type="submit">Tag Selected Skills</button>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the selected race from sessionStorage
+      var selectedRace = sessionStorage.getItem('selectedRace');
+      var selectedBackground = sessionStorage.getItem('selectedBackground')
+      var MeleeWpn = sessionStorage.getItem('MeleeWpn');
+      var Throw = sessionStorage.getItem('Throw');
+      var Unarm = sessionStorage.getItem('Unarm');
+      var Arch = sessionStorage.getItem('Arch');
+      var BigGn = sessionStorage.getItem('BigGn');
+      var NRG = sessionStorage.getItem('NRG');
+      var SmGn = sessionStorage.getItem('SmGn');
+      var Smith = sessionStorage.getItem('Smith');
+      var Chem = sessionStorage.getItem('Chem');
+      var Com = sessionStorage.getItem('Com');
+      var Doc = sessionStorage.getItem('Doc');
+      var Engineer = sessionStorage.getItem('Engineer');
+      var Gunsmith = sessionStorage.getItem('Gunsmith');
+      var Charm = sessionStorage.getItem('Charm');
+      var Dec = sessionStorage.getItem('Dec');
+      var Ins = sessionStorage.getItem('Ins');
+      var Int = sessionStorage.getItem('Int');
+      var Gam = sessionStorage.getItem('Gam');
+      var Lore = sessionStorage.getItem('Lore');
+      var Obs = sessionStorage.getItem('Obs');
+      var Pilot = sessionStorage.getItem('Pilot');
+      var SoH = sessionStorage.getItem('SoH');
+      var Sneak = sessionStorage.getItem('Sneak');
+      var Surviv = sessionStorage.getItem('Surviv');
+
+      // Define the available skills and their current levels
+      var availableSkills = {
+        'Melee Weapon': MeleeWpn,
+        'Throwing': Throw,
+        'Unarmed': Unarm,
+        'Archery': Arch,
+        'Big Guns': BigGn,
+        'Energy Weapons': NRG,
+        'Small Guns': SmGn,
+        'Blacksmith': Smith,
+        'Chemistry': Chem,
+        'Computer Science': Com,
+        'Doctor': Doc,
+        'Engineer': Engineer,
+        'Gunsmith': Gunsmith,
+        'Charm': Charm,
+        'Deception': Dec,
+        'Insight': Ins,
+        'Intimidation': Int,
+        'Gambling': Gam,
+        'Lore': Lore,
+        'Observation': Obs,
+        'Pilot': Pilot,
+        'Sleight of Hand': SoH,
+        'Sneak': Sneak,
+        'Survival': Surviv
+      };
+
+      // Create checkboxes for skill tagging with current levels based on the selected race
+      var skillOptionsDiv = document.getElementById('skillOptions');
+      for (var skill in availableSkills) {
+        if (availableSkills.hasOwnProperty(skill)) {
+          var input = document.createElement('input');
+          input.type = 'checkbox';
+          input.name = 'taggedSkills';
+          input.value = skill;
+          input.id = skill.toLowerCase(); // Use lowercase skill name as the id
+          var label = document.createElement('label');
+          label.htmlFor = skill.toLowerCase();
+          label.appendChild(document.createTextNode(skill + ' - ' + availableSkills[skill]));
+          skillOptionsDiv.appendChild(input);
+          skillOptionsDiv.appendChild(label);
+          skillOptionsDiv.appendChild(document.createElement('br'));
+
+          if (selectedRace === 'Ghoul' && selectedBackground === 'Old World Blues' && skill === 'Lore') {
+            input.checked = true;
+            input.disabled = true;
+          } else if (selectedRace === 'Intelligent Deathclaw') {
+            if (skill === 'Unarmed') {
+                input.checked = true;
+                input.disabled = true;
+            }
+            if (selectedBackground === 'Jackson Chameleon' && skill === 'Survival') {
+                input.checked = true;
+                input.disabled = true;
+            }
+          }
+        }
+      }
+
+      // Add event listener to restrict the number of checkboxes that can be checked based on the selected race
+      var checkboxes = document.querySelectorAll('input[name="taggedSkills"]');
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          var maxSkills
+          if (selectedRace === 'Human' || selectedRace === 'Synth') {
+            if (selectedBackground === 'Wanderer') {
+                maxSkills = 6;
+            }else {
+                maxSkills = 5;
+            }
+          } else if (selectedRace === 'Ghoul') {
+            if (selectedBackground === 'Old World Blues') {
+                maxSkills = 7;
+            } else {
+                maxSkills = 6;
+            }
+          } else if (selectedRace === 'Eastern Super Mutant') {
+            maxSkills = 4;
+          } else if (selectedRace === 'Western Super Mutant') {
+            if (selectedBackground === 'The Scholar') {
+                maxSkills = 5;
+            } else {
+                maxSkills = 4;
+            }
+          } else if (selectedRace === 'Mole Miner') {
+            if (selectedBackground === 'Supervisor') {
+                maxSkills = 5;
+            } else {
+                maxSkills = 4;
+            }
+          } else if (selectedRace === 'Intelligent Deathclaw') {
+            if (selectedBackground === 'Jackson Chameleon') {
+                maxSkills = 6;
+            } else {
+                maxSkills = 5;
+            }
+          }
+          var checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+          if (checkedCount > maxSkills) {
+            this.checked = false;
+          }
+        });
+      });
+
+      // Add form submission event listener to increase the level of tagged skills by 20 in sessionStorage
+      document.getElementById('skillsForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Increase the level of all tagged skills by 20 in sessionStorage
+        var taggedSkills = Array.from(document.querySelectorAll('input[name="taggedSkills"]:checked'), input => input.value);
+        taggedSkills.forEach(skill => {
+          availableSkills[skill] += 20;
+        });
+        sessionStorage.setItem('taggedSkills', JSON.stringify(availableSkills));
+
+        // Proceed to the next page or perform any other necessary action
+        // Example: window.location.href = 'finalPage.html';
+      });
+    });
+  </script>
+</body>
+</html>

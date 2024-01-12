@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Point Buy System</title>
+  <script>
+    function updatePoints() {
+    var selectedRace = sessionStorage.getItem('selectedRace');
+    var selectedBackground = sessionStorage.getItem('selectedBackground');
+    var SPECIALPoints;
+    var STRInput = document.getElementById('strength');
+    var PERInput = document.getElementById('perception');
+    var ENDInput = document.getElementById('endurance');
+    var CHAInput = document.getElementById('charisma');
+    var INTInput = document.getElementById('intelligence');
+    var AGIInput = document.getElementById('agility');
+    var LCKInput = document.getElementById('luck');
+    if (selectedRace === 'Human') {
+        if (selectedBackground === 'Wanderer') {
+            SPECIALPoints = 35;
+        } else {
+            SPECIALPoints = 33;
+        }
+    } else if (selectedRace === 'Ghoul') {
+        if (selectedBackground === 'Old World Blues') {
+            SPECIALPoints = 30;
+        } else {
+            SPECIALPoints = 28;
+        }
+      STRInput.max = 8;
+      PERInput.min = 2;
+      PERInput.value = 2;
+      ENDInput.max = 8;
+      if (selectedBackground === "You're RADical") {
+        CHAInput.min = 2;
+        CHAInput.value = 2;
+      }
+      INTInput.min = 3;
+      INTInput.value = 3;
+      INTInput.max = 12;
+      LCKInput.min = 5;
+      LCKInput.value = 5;
+      LCKInput.max = 12;
+    } else if (selectedRace === 'Synth') {
+        if (selectedBackground === 'I Am Superior') {
+            SPECIALPoints = 36;
+        } else {
+            SPECIALPoints = 33;
+        }
+    } else if (selectedRace === 'Eastern Super Mutant') {
+        if (selectedBackground === 'OVERLORD') {
+          SPECIALPoints = 32;
+          STRInput.min = 7;
+          STRInput.value = 7;
+          ENDInput.min = 6;
+          ENDInput.value = 6;
+        } else {
+          SPECIALPoints = 30;
+          STRInput.min = 6;
+          STRInput.value = 6;
+          ENDInput.min = 5;
+          ENDInput.value = 5;
+        }
+        STRInput.max = 15;
+        ENDInput.max = 12;
+        CHAInput.max = 5;
+        INTInput.max = 7;
+    } else if (selectedRace === 'Western Super Mutant') {
+      SPECIALPoints = 30;
+      STRInput.min = 5;
+      STRInput.value = 5;
+      STRInput.max = 13;
+      if (selectedBackground === 'The Soldier') {
+        ENDInput.min = 6;
+        ENDInput.value = 6;
+      } else {
+        ENDInput.min = 5;
+        ENDInput.value = 6;
+      }
+      ENDInput.max = 11;
+      CHAInput.max = 7;
+      if (selectedBackground === 'The Scholar') {
+        INTInput.min = 3;
+        INTInput.value = 3;
+      } else {
+        INTInput.min = 2;
+        INTInput.value = 2;
+      }
+      INTInput.max = 11;
+      if (selectedBackground === 'The Nightkin') {
+        AGIInput.min = 2;
+        AGIInput.value = 2;
+      }
+    } else if (selectedRace === 'Mole Miner') {
+      STRInput.min = 3;
+      STRInput.value = 3;
+      STRInput.max = 12;
+      ENDInput.max = 8;
+      if (selectedBackground === 'Purveyor') {
+        SPECIALPoints = 32;
+        CHAInput.min = 2;
+        CHAInput.value = 2;
+      }else if (selectedBackground === 'Supervisor') {
+        SPECIALPoints = 32;
+        INTInput.min = 2;
+        INTInput.value = 2;
+      } else {
+        SPECIALPoints = 31;
+      }
+      LCKInput.min = 3;
+      LCKInput.value = 3;
+    } else if (selectedRace === 'Intelligent Deathclaw') {
+      SPECIALPoints  = 27;
+      STRInput.min = 8;
+      STRInput.value = 8;
+      STRInput.max = 16;
+      PERInput.min = 3;
+      PERInput.value = 3;
+      PERInput.max = 12;
+      ENDInput.min = 5;
+      ENDInput.value = 5;
+      ENDInput.max = 15;
+      CHAInput.max = 5;
+      INTInput.min = 4;
+      INTInput.value = 4;
+      AGIInput.min = 3;
+      AGIInput.value = 3;
+      AGIInput.max = 12;
+    }
+      var allocatedPoints = 0;
+      var STR = parseInt(document.getElementById('strength').value);
+      var PER = parseInt(document.getElementById('perception').value);
+      var END = parseInt(document.getElementById('endurance').value);
+      var CHA = parseInt(document.getElementById('charisma').value);
+      var INT = parseInt(document.getElementById('intelligence').value);
+      var AGI = parseInt(document.getElementById('agility').value);
+      var LCK = parseInt(document.getElementById('luck').value);
+
+      allocatedPoints = (STR-STRInput.min) + (PER-PERInput.min) + (END-ENDInput.min) + (CHA-CHAInput.min) +(INT-INTInput.min) + (AGI-AGIInput.min) + (LCK-LCKInput.min);
+
+      if (allocatedPoints <= SPECIALPoints) {
+        document.getElementById('remainingPoints').innerText = "Points remaining: " + (SPECIALPoints - allocatedPoints);
+        // Save choices to sessionStorage
+        sessionStorage.setItem('STR', STR);
+        sessionStorage.setItem('PER', PER);
+        sessionStorage.setItem('END', END);
+        sessionStorage.setItem('CHA', CHA);
+        sessionStorage.setItem('INT', INT);
+        sessionStorage.setItem('AGI', AGI);
+        sessionStorage.setItem('LCK', LCK);
+      } else {
+        alert("You have allocated more than the allowed amount. Reverting to previous allocation.");
+
+    // Revert to the previous allocation
+    document.getElementById('strength').value = prevValues.STR || 0;
+    document.getElementById('perception').value = prevValues.PER || 0;
+    document.getElementById('endurance').value = prevValues.END || 0;
+    document.getElementById('charisma').value = prevValues.CHA || 0;
+    document.getElementById('intelligence').value = prevValues.INT || 0;
+    document.getElementById('agility').value = prevValues.AGI || 0;
+    document.getElementById('luck').value = prevValues.LCK || 0;
+
+    // Update the remaining points display
+    document.getElementById('remainingPoints').innerText = "Points remaining: " + (SPECIALPoints - allocatedPoints);
+
+    // Update the sessionStorage values to the previous allocation
+    sessionStorage.setItem('STR', prevValues.STR || 0);
+    sessionStorage.setItem('PER', prevValues.PER || 0);
+    sessionStorage.setItem('END', prevValues.END || 0);
+    sessionStorage.setItem('CHA', prevValues.CHA || 0);
+    sessionStorage.setItem('INT', prevValues.INT || 0);
+    sessionStorage.setItem('AGI', prevValues.AGI || 0);
+    sessionStorage.setItem('LCK', prevValues.LCK || 0);
+  }
+
+  // Store the current values as previous values for the next allocation check
+  prevValues = {
+    STR: parseInt(document.getElementById('strength').value),
+    PER: parseInt(document.getElementById('perception').value),
+    END: parseInt(document.getElementById('endurance').value),
+    CHA: parseInt(document.getElementById('charisma').value),
+    INT: parseInt(document.getElementById('intelligence').value),
+    AGI: parseInt(document.getElementById('agility').value),
+    LCK: parseInt(document.getElementById('luck').value)
+  };
+}
+
+    function goToNextPage() {
+      // Redirect to the next page
+      window.location.href = "languages.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+  // Update the content of the <p> element with the id 'remainingPoints'
+  document.getElementById('remainingPoints').innerText = "Points remaining: " + SPECIALPoints;
+});
+  </script>
+</head>
+<body>
+  <h2>Point Buy System</h2>
+  <form>
+    <label for="strength">Strength:</label>
+    <input type="number" id="strength" name="strength" min="1" max="10" value="1" onchange="updatePoints()"><br>
+
+    <label for="perception">Perception:</label>
+    <input type="number" id="perception" name="perception" min="1" max="10" value="1" onchange="updatePoints()"><br>
+
+    <label for="endurance">Endurance:</label>
+    <input type="number" id="endurance" name="endurance" min="1" max="10" value="1" onchange="updatePoints()"><br>
+
+    <label for="charisma">Charisma:</label>
+    <input type="number" id="charisma" name="charisma" min="1" max="10" value="1" onchange="updatePoints()"><br>
+
+    <label for="intelligence">Intelligence:</label>
+    <input type="number" id="intelligence" name="intelligence" min="1" max="10" value="1" onchange="updatePoints()"><br>
+
+    <label for="agility">Agility:</label>
+    <input type="number" id="agility" name="agility" min="1" max="10" value="1" onchange="updatePoints()"><br>
+
+    <label for="luck">Luck:</label>
+    <input type="number" id="luck" name="luck" min="1" max="10" value="1" onchange="updatePoints()"><br>
+
+    <p id="remainingPoints"></p>
+
+    <button type="button" onclick="goToNextPage()">Proceed to Next Page</button>
+  </form>
+</body>
+</html>

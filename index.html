@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fallout POC</title>
+  <script>
+    function saveFormData() {
+      var selectedRace = document.querySelector('input[name="item"]:checked').value;
+      sessionStorage.setItem('selectedRace', selectedRace);
+    }
+  </script>
+</head>
+<body>
+  <h2>Pick Your Race:</h2>
+  <form onsubmit="saveFormData()" action="background.html">
+    <input type="radio" id="item1" name="item" value="Human">
+    <label for="item1">Human</label><br>
+    <input type="radio" id="item2" name="item" value="Ghoul">
+    <label for="item2">Ghoul</label><br>
+    <input type="radio" id="item3" name="item" value="Synth">
+    <label for="item3">Synth</label><br>
+    <input type="radio" id="item4" name="item" value="Eastern Super Mutant">
+    <label for="item4">Eastern Super Mutant</label><br>
+    <input type="radio" id="item5" name="item" value="Western Super Mutant">
+    <label for="item5">Western Super Mutant</label><br>
+    <input type="radio" id="item6" name="item" value="Mole Miner">
+    <label for="item6">Mole Miner</label><br>
+    <input type="radio" id="item8" name="item" value="Intelligent Deathclaw">
+    <label for="item7">Intelligent Deathclaw</label><br>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>
