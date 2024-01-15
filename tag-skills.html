@@ -20,58 +20,58 @@
     document.addEventListener("DOMContentLoaded", function() {
       // Get the selected race from sessionStorage
       var selectedRace = sessionStorage.getItem('selectedRace');
-      var selectedBackground = sessionStorage.getItem('selectedBackground')
-      var MeleeWpn = sessionStorage.getItem('MeleeWpn');
-      var Throw = sessionStorage.getItem('Throw');
-      var Unarm = sessionStorage.getItem('Unarm');
-      var Arch = sessionStorage.getItem('Arch');
-      var BigGn = sessionStorage.getItem('BigGn');
-      var NRG = sessionStorage.getItem('NRG');
-      var SmGn = sessionStorage.getItem('SmGn');
-      var Smith = sessionStorage.getItem('Smith');
-      var Chem = sessionStorage.getItem('Chem');
-      var Com = sessionStorage.getItem('Com');
-      var Doc = sessionStorage.getItem('Doc');
-      var Engineer = sessionStorage.getItem('Engineer');
-      var Gunsmith = sessionStorage.getItem('Gunsmith');
-      var Charm = sessionStorage.getItem('Charm');
-      var Dec = sessionStorage.getItem('Dec');
-      var Ins = sessionStorage.getItem('Ins');
-      var Int = sessionStorage.getItem('Int');
-      var Gam = sessionStorage.getItem('Gam');
-      var Lore = sessionStorage.getItem('Lore');
-      var Obs = sessionStorage.getItem('Obs');
-      var Pilot = sessionStorage.getItem('Pilot');
-      var SoH = sessionStorage.getItem('SoH');
-      var Sneak = sessionStorage.getItem('Sneak');
-      var Surviv = sessionStorage.getItem('Surviv');
+      var selectedBackground = sessionStorage.getItem('selectedBackground');
+      var MeleeWpn = parseInt(sessionStorage.getItem('MeleeWpn'));
+      var Throw = parseInt(sessionStorage.getItem('Throw'));
+      var Unarm = parseInt(sessionStorage.getItem('Unarm'));
+      var Arch = parseInt(sessionStorage.getItem('Arch'));
+      var BigGn = parseInt(sessionStorage.getItem('BigGn'));
+      var NRG = parseInt(sessionStorage.getItem('NRG'));
+      var SmGn = parseInt(sessionStorage.getItem('SmGn'));
+      var Smith = parseInt(sessionStorage.getItem('Smith'));
+      var Chem = parseInt(sessionStorage.getItem('Chem'));
+      var Com = parseInt(sessionStorage.getItem('Com'));
+      var Doc = parseInt(sessionStorage.getItem('Doc'));
+      var Engineer = parseInt(sessionStorage.getItem('Engineer'));
+      var Gunsmith = parseInt(sessionStorage.getItem('Gunsmith'));
+      var Charm = parseInt(sessionStorage.getItem('Charm'));
+      var Dec = parseInt(sessionStorage.getItem('Dec'));
+      var Ins = parseInt(sessionStorage.getItem('Ins'));
+      var Int = parseInt(sessionStorage.getItem('Int'));
+      var Gam = parseInt(sessionStorage.getItem('Gam'));
+      var Lore = parseInt(sessionStorage.getItem('Lore'));
+      var Obs = parseInt(sessionStorage.getItem('Obs'));
+      var Pilot = parseInt(sessionStorage.getItem('Pilot'));
+      var SoH = parseInt(sessionStorage.getItem('SoH'));
+      var Sneak = parseInt(sessionStorage.getItem('Sneak'));
+      var Surviv = parseInt(sessionStorage.getItem('Surviv'));
 
       // Define the available skills and their current levels
       var availableSkills = {
-        'Melee Weapon': MeleeWpn,
-        'Throwing': Throw,
-        'Unarmed': Unarm,
-        'Archery': Arch,
-        'Big Guns': BigGn,
-        'Energy Weapons': NRG,
-        'Small Guns': SmGn,
-        'Blacksmith': Smith,
-        'Chemistry': Chem,
-        'Computer Science': Com,
-        'Doctor': Doc,
+        'MeleeWpn': MeleeWpn,
+        'Throw': Throw,
+        'Unarm': Unarm,
+        'Arch': Arch,
+        'BigGn': BigGn,
+        'NRG': NRG,
+        'SmGn': SmGn,
+        'Smith': Smith,
+        'Chem': Chem,
+        'Com': Com,
+        'Doc': Doc,
         'Engineer': Engineer,
         'Gunsmith': Gunsmith,
         'Charm': Charm,
-        'Deception': Dec,
-        'Insight': Ins,
-        'Intimidation': Int,
-        'Gambling': Gam,
+        'Dec': Dec,
+        'Ins': Ins,
+        'Int': Int,
+        'Gam': Gam,
         'Lore': Lore,
-        'Observation': Obs,
+        'Obs': Obs,
         'Pilot': Pilot,
-        'Sleight of Hand': SoH,
+        'SoH': SoH,
         'Sneak': Sneak,
-        'Survival': Surviv
+        'Surviv': Surviv
       };
 
       // Create checkboxes for skill tagging with current levels based on the selected race
@@ -158,12 +158,11 @@
         // Increase the level of all tagged skills by 20 in sessionStorage
         var taggedSkills = Array.from(document.querySelectorAll('input[name="taggedSkills"]:checked'), input => input.value);
         taggedSkills.forEach(skill => {
-          availableSkills[skill] += 20;
+          sessionStorage.setItem(skill, availableSkills[skill] + 20);
         });
-        sessionStorage.setItem('taggedSkills', JSON.stringify(availableSkills));
 
         // Proceed to the next page or perform any other necessary action
-        // Example: window.location.href = 'finalPage.html';
+        window.location.href = 'finalPage.html';
       });
     });
   </script>

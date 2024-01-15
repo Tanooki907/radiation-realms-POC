@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Selection Summary</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h2>User Selection Summary</h2>
+  <h3>Selected Race: <span id="selectedRace"></span></h3>
+  <h3>Selected Background: <span id="selectedBackground"></span></h3>
+  <h3>SPECIAL Stats:</h3>
+  <table>
+    <tr>
+      <th>Stat</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Strength (STR)</td>
+      <td id="specialSTR"></td>
+    </tr>
+    <tr>
+      <td>Perception (PER)</td>
+      <td id="specialPER"></td>
+    </tr>
+    <tr>
+      <td>Endurance (END)</td>
+      <td id="specialEND"></td>
+    </tr>
+    <tr>
+      <td>Charisma (CHA)</td>
+      <td id="specialCHA"></td>
+    </tr>
+    <tr>
+      <td>Intelligence (INT)</td>
+      <td id="specialINT"></td>
+    </tr>
+    <tr>
+      <td>Agility (AGI)</td>
+      <td id="specialAGI"></td>
+    </tr>
+    <tr>
+      <td>Luck (LCK)</td>
+      <td id="specialLCK"></td>
+    </tr>
+  </table>
+  <h3>Languages:</h3>
+  <ul id="selectedLanguages"></ul>
+  <h3>Selected Skills:</h3>
+  <table>
+    <tr>
+      <th>Skill</th>
+      <th>Total Points</th>
+    </tr>
+    <tr>
+        <td>Melee Weapons</td>
+        <td id="totalMeleeWpn">0</td>
+      </tr>
+      <tr>
+        <td>Throwing</td>
+        <td id="totalThrow">0</td>
+      </tr>
+      <tr>
+          <td>Unarmed</td>
+          <td id="totalUnarm">0</td>
+        </tr>
+      <tr>
+          <td>Archery</td>
+          <td id="totalArch">0</td>
+        </tr>
+        <tr>
+          <td>Big Guns</td>
+          <td id="totalBigGn">0</td>
+        </tr>
+        <tr>
+          <td>Energy Weapons</td>
+          <td id="totalNRG">0</td>
+        </tr>
+        <tr>
+          <td>Small Guns</td>
+          <td id="totalSmGn">0</td>
+        </tr>
+      <tr>
+          <td>Blacksmith</td>
+          <td id="totalSmith">0</td>
+        </tr>
+        <tr>
+          <td>Chemistry</td>
+          <td id="totalChem">0</td>
+        </tr>
+        <tr>
+          <td>Computer Science</td>
+          <td id="totalCom">0</td>
+        </tr>
+        <tr>
+          <td>Doctor</td>
+          <td id="totalDoc">0</td>
+        </tr>
+        <tr>
+          <td>Engineer</td>
+          <td id="totalEngineer">0</td>
+        </tr>
+        <tr>
+          <td>Gunsmith</td>
+          <td id="totalGunsmith">0</td>
+        </tr>
+      <tr>
+          <td>Charm</td>
+          <td id="totalCharm">0</td>
+        </tr>
+        <tr>
+          <td>Deception</td>
+          <td id="totalDec">0</td>
+        </tr>
+        <tr>
+          <td>Insight</td>
+          <td id="totalIns">0</td>
+        </tr>
+        <tr>
+          <td>Intimidation</td>
+          <td id="totalInt">0</td>
+        </tr>
+      <tr>
+          <td>Gambling</td>
+          <td id="totalGam">0</td>
+        </tr>
+        <tr>
+          <td>Lore</td>
+          <td id="totalLore">0</td>
+        </tr>
+        <tr>
+          <td>Observation</td>
+          <td id="totalObs">0</td>
+        </tr>
+        <tr>
+          <td>Pilot</td>
+          <td id="totalPilot">0</td>
+        </tr>
+        <tr>
+          <td>Sleight of Hand</td>
+          <td id="totalSoH">0</td>
+        </tr>
+        <tr>
+          <td>Sneak</td>
+          <td id="totalSneak">0</td>
+        </tr>
+        <tr>
+          <td>Survival</td>
+          <td id="totalSurviv">0</td>
+        </tr>
+    <!-- Populate with skills and total points from sessionStorage -->
+  </table>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var selectedRace = sessionStorage.getItem('selectedRace');
+      var selectedBackground = sessionStorage.getItem('selectedBackground');
+      var STR = sessionStorage.getItem('STR');
+      var PER = sessionStorage.getItem('PER');
+      var END = sessionStorage.getItem('END');
+      var CHA = sessionStorage.getItem('CHA');
+      var INT = sessionStorage.getItem('INT');
+      var AGI = sessionStorage.getItem('AGI');
+      var LCK = sessionStorage.getItem('LCK');
+      var selectedLanguages = JSON.parse(sessionStorage.getItem('selectedLanguages'));
+      var MeleeWpn = sessionStorage.getItem('MeleeWpn');
+      var Throw = sessionStorage.getItem('Throw');
+      var Unarm = sessionStorage.getItem('Unarm');
+      var Arch = sessionStorage.getItem('Arch');
+      var BigGn = sessionStorage.getItem('BigGn');
+      var NRG = sessionStorage.getItem('NRG');
+      var SmGn = sessionStorage.getItem('SmGn');
+      var Smith = sessionStorage.getItem('Smith');
+      var Chem = sessionStorage.getItem('Chem');
+      var Com = sessionStorage.getItem('Com');
+      var Doc = sessionStorage.getItem('Doc');
+      var Engineer = sessionStorage.getItem('Engineer');
+      var Gunsmith = sessionStorage.getItem('Gunsmith');
+      var Charm = sessionStorage.getItem('Charm');
+      var Dec = sessionStorage.getItem('Dec');
+      var Ins = sessionStorage.getItem('Ins');
+      var Int = sessionStorage.getItem('Int');
+      var Gam = sessionStorage.getItem('Gam');
+      var Lore = sessionStorage.getItem('Lore');
+      var Obs = sessionStorage.getItem('Obs');
+      var Pilot = sessionStorage.getItem('Pilot');
+      var SoH = sessionStorage.getItem('SoH');
+      var Sneak = sessionStorage.getItem('Sneak');
+      var Surviv = sessionStorage.getItem('Surviv');
+
+      document.getElementById('selectedRace').textContent = selectedRace;
+      document.getElementById('selectedBackground').textContent = selectedBackground;
+      document.getElementById('specialSTR').textContent = STR;
+      document.getElementById('specialPER').textContent = PER;
+      document.getElementById('specialEND').textContent = END;
+      document.getElementById('specialCHA').textContent = CHA;
+      document.getElementById('specialINT').textContent = INT;
+      document.getElementById('specialAGI').textContent = AGI;
+      document.getElementById('specialLCK').textContent = LCK;
+
+      var selectedLanguagesList = document.getElementById('selectedLanguages');
+      selectedLanguages.forEach(function(language) {
+        var li = document.createElement('li');
+        li.textContent = language;
+        selectedLanguagesList.appendChild(li);
+      });
+
+      var skills = ['MeleeWpn', 'Throw', 'Unarm', 'Arch', 'BigGn', 'NRG', 'SmGn', 'Smith', 'Chem', 'Com', 'Doc', 'Engineer', 'Gunsmith', 'Charm', 'Dec', 'Ins', 'Int', 'Gam', 'Lore', 'Obs', 'Pilot', 'SoH', 'Sneak', 'Surviv'];
+      skills.forEach(function(skill) {
+        var skillValue = document.getElementById('total' + skill);
+        skillValue.textContent = sessionStorage.getItem(skill);
+      });
+    });
+  </script>
+</body>
+</html>

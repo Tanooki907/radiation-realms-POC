@@ -134,7 +134,7 @@
         <td>Insight</td>
         <td id="baseIns">0</td>
         <td><input type="number" id="additionalIns" min="0" max="40" value="0"></td>
-        <td id="totalins">0</td>
+        <td id="totalIns">0</td>
       </tr>
       <tr>
         <td>Intimidation</td>
@@ -229,12 +229,36 @@
       document.getElementById('baseSoH').textContent = PER + CHA + AGI + LCK;
       document.getElementById('baseSneak').textContent = 5 + AGI + AGI + LCK;
       document.getElementById('baseSurviv').textContent = PER + END + INT + LCK;
+      sessionStorage.setItem('MeleeWpn', document.getElementById('baseMeleeWpn').textContent);
+      sessionStorage.setItem('Throw', document.getElementById('baseThrow').textContent);
+      sessionStorage.setItem('Unarm', document.getElementById('baseUnarm').textContent);
+      sessionStorage.setItem('Arch', document.getElementById('baseArch').textContent);
+      sessionStorage.setItem('BigGn', document.getElementById('baseBigGn').textContent);
+      sessionStorage.setItem('NRG', document.getElementById('baseNRG').textContent);
+      sessionStorage.setItem('SmGn', document.getElementById('baseSmGn').textContent);
+      sessionStorage.setItem('Smith', document.getElementById('baseSmith').textContent);
+      sessionStorage.setItem('Chem', document.getElementById('baseChem').textContent);
+      sessionStorage.setItem('Com', document.getElementById('baseCom').textContent);
+      sessionStorage.setItem('Doc', document.getElementById('baseDoc').textContent);
+      sessionStorage.setItem('Engineer', document.getElementById('baseEngineer').textContent);
+      sessionStorage.setItem('Gunsmith', document.getElementById('baseGunsmith').textContent);
+      sessionStorage.setItem('Charm', document.getElementById('baseCharm').textContent);
+      sessionStorage.setItem('Dec', document.getElementById('baseDec').textContent);
+      sessionStorage.setItem('Ins', document.getElementById('baseIns').textContent);
+      sessionStorage.setItem('Int', document.getElementById('baseInt').textContent);
+      sessionStorage.setItem('Gam', document.getElementById('baseGam').textContent);
+      sessionStorage.setItem('Lore', document.getElementById('baseLore').textContent);
+      sessionStorage.setItem('Obs', document.getElementById('baseObs').textContent);
+      sessionStorage.setItem('Pilot', document.getElementById('basePilot').textContent);
+      sessionStorage.setItem('SoH', document.getElementById('baseSoH').textContent);
+      sessionStorage.setItem('Sneak', document.getElementById('baseSneak').textContent);
+      sessionStorage.setItem('Surviv', document.getElementById('baseSurviv').textContent);
       }
       // Update base points for other skills similarly
 
       // Add event listeners to update the total points when additional points are changed
-      var addEventListers = function() {
-        var skills = ['MeleeWpn', 'Throw', 'Unarm', 'Arch', 'BigGn', 'NRG', 'SmGn', 'Smith', 'Chem', 'Com', 'Doc', 'Engineer', 'GunSmith', 'Charm', 'Dec', 'Ins', 'Int', 'Gam', 'Lore', 'Obs', 'Pilot', 'SoH', 'Sneak', 'Surviv'];
+      var addEventListeners = function() {
+        var skills = ['MeleeWpn', 'Throw', 'Unarm', 'Arch', 'BigGn', 'NRG', 'SmGn', 'Smith', 'Chem', 'Com', 'Doc', 'Engineer', 'Gunsmith', 'Charm', 'Dec', 'Ins', 'Int', 'Gam', 'Lore', 'Obs', 'Pilot', 'SoH', 'Sneak', 'Surviv'];
       skills.forEach(function(skill) {
         var additionalInput = document.getElementById('additional' + skill);
         var totalOutput = document.getElementById('total' + skill);
@@ -245,15 +269,17 @@
           var additionalPoints = parseInt(this.value);
           var totalPoints = basePoints + additionalPoints;
           totalOutput.textContent = totalPoints;
+          sessionStorage.setItem(skill, document.getElementById('total' + skill).textContent)
         });
       });
       }
       updateBasePoints();
-      addEventListers();
+      addEventListeners();
 
                   // Add event listener to proceed to the next page when the button is clicked
                   var handleButtonClick = function() {
         var totalPoints = 0;
+        var skills = ['MeleeWpn', 'Throw', 'Unarm', 'Arch', 'BigGn', 'NRG', 'SmGn', 'Smith', 'Chem', 'Com', 'Doc', 'Engineer', 'Gunsmith', 'Charm', 'Dec', 'Ins', 'Int', 'Gam', 'Lore', 'Obs', 'Pilot', 'SoH', 'Sneak', 'Surviv'];
         skills.forEach(function(skill) {
           totalPoints += parseInt(document.getElementById('additional' + skill).value);
         });
@@ -269,6 +295,7 @@
       proceedButton.addEventListener('click', handleButtonClick);
 
     });
+    // 
   </script>
 </body>
 </html>
