@@ -24,9 +24,10 @@ on:
         required: true
 
 jobs:
-  print-tag:
+  print_context:
     runs-on: ubuntu-latest
-    if: ${{ inputs.print_tags }}
     steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }}
+      - env:
+          EVENT_CONTEXT: ${{ toJson(github.event) }}
+        run: |
+          echo $EVENT_CONTEXT
