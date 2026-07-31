@@ -1,14 +1,19 @@
-name: learn-github-actions
-on: [push]
+name: CI
+on: 
+  push:
+    branches: [main]
 jobs:
-  check-bats-version:
-    runs-on: 
-      group: build-runners
-      labels: ubuntu-24.04-16core
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
