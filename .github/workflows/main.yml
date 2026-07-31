@@ -1,7 +1,7 @@
 name: Report remaining open issues
 on: 
   schedule:
-    - cron: '55 19 * * *'
+    - cron: '1 20 * * *'
 permissions:
   issues: write
 jobs:
