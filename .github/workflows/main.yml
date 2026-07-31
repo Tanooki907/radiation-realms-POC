@@ -1,15 +1,13 @@
-on:
-  workflow_dispatch:
-    inputs:
-      chosen-os:
-        required: true
-        type: choice
-        options:
-          - Ubuntu
-          - macOS
-
+name: learn-github-actions
+on: [push]
 jobs:
-  test:
-    runs-on: [self-hosted, "${{ inputs.chosen-os }}"]
+  check-bats-version:
+    runs-on: 
+      group: build-runners
     steps:
-      - run: echo Hello world!
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
