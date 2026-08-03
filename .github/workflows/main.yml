@@ -7,7 +7,7 @@ on:
 
 jobs:
   call-workflow:
-    uses: Tanooki90/radiation-realms-POC/.github/workflows/reusable-workflow.yml@main
+    uses: Tanooki907/radiation-realms-POC/.github/workflows/reusable-workflow.yml@main
 
   call-workflow-passing-data:
     permissions:
