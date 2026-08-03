@@ -1,9 +1,20 @@
-on:
-  workflow_dispatch:
+name: Call a reusable workflow
+
+on: 
+  pull_request:
+    branches:
+      - main
 
 jobs:
+  call-workflow:
+    uses: Tanooki90/radiation-realms-POC/.github/workflows/reusable-workflow.yml@main
+
   call-workflow-passing-data:
+    permissions:
+      contents: read
+      pull-requests: write
     uses: Tanooki907/radiation-realms-POC/.github/workflows/reusable-workflow.yml@main
     with:
       config-path: .github/labeler.yml
-    secrets: inherit
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
