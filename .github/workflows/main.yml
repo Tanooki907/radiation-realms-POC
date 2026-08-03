@@ -7,4 +7,4 @@ jobs:
     with:
       config-path: .github/labeler.yml
     secrets:
-      personal_access_token: ${{ secrets.token }}
+      personal_access_token: ${{ secrets.MY_TOKEN }}
