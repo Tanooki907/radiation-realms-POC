@@ -6,15 +6,9 @@ on:
       target:
         required: true
         type: string
-    secrets:
-      token:
-        required: true
 
 jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/labeler@v6
-        with:
-          repo-token: ${{ secrets.token }}
-          configuration-path: ${{ inputs.target }}
+      - run: echo "${{ inputs.target }}"
