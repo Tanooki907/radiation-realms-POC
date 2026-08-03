@@ -5,3 +5,5 @@ My proof of concept is a program, depicting a somewhat simplified version of the
 I decided to build the program in HTML, because if you can build it in HTML, you can build it in most other programs as well, React included. Thankfully, there were no problems encountered that had to do with the system itself – mainly just small bugs that needed to be ironed out – simple problems that could be encountered on any attempt to build a website. Therefore, since the feature I have planned is not difficult (just a lot of work) I will continue to move forward with my project as intended. 
 
 Working Site: https://tanooki907.github.io/radiation-realms-POC/
+
+testing a thingy
