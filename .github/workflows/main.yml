@@ -2,17 +2,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  job:
-    environment: Production
+  test:
     runs-on: ubuntu-latest
+    environment:
+      name: staging
+      deployment: false
     steps:
-      - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client
-      - name: Get Id Token
-        uses: actions/github-script@v8
-        id: idtoken
-        with:
-          script: |
-            const coredemo = require('@actions/core')
-            let id_token = await coredemo.getIDToken()
-            coredemo.setOutput('id_token', id_token)
+      - name: run tests
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: echo "Running tests with staging secrets"
