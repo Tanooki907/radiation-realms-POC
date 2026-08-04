@@ -1,14 +1,18 @@
-name: Call a reusable workflow and use its outputs
-
 on:
   workflow_dispatch:
 
 jobs:
-  job1:
-    uses: Tanooki907/radiation-realms-POC/.github/workflows/reusable-workflow.yml@main
-
-  job2:
+  job:
+    environment: Production
     runs-on: ubuntu-latest
-    needs: job1
     steps:
-      - run: echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
+      - name: Install OIDC Client from Core Package
+        run: npm install @actions/core@1.6.0 @actions/http-client
+      - name: Get Id Token
+        uses: actions/github-script@v8
+        id: idtoken
+        with:
+          script: |
+            const coredemo = require('@actions/core')
+            let id_token = await coredemo.getIDToken()
+            coredemo.setOutput('id_token', id_token)
