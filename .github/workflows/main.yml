@@ -1,32 +1,13 @@
-name: Run commands on different operating systems
-on: 
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+name: Build on Ubuntu
+on: push
 
 jobs:
-  Run-npm-on-Ubuntu:
-    name: Run npm on Ubuntu
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '14'
-      - run: npm help
-
-  Run-PSScriptAnalyzer-on-Windows:
-    name: Run PSScriptAnalyzer on Windows
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Install PSScriptAnalyzer module
-        shell: pwsh
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Install jq tool
         run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module PSScriptAnalyzer -ErrorAction Stop
-      - name: Get list of rules
-        shell: pwsh
-        run: |
-          Get-ScriptAnalyzerRule
+          sudo apt-get update
+          sudo apt-get install jq
