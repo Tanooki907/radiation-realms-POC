@@ -1,13 +1,17 @@
-name: Build on Ubuntu
+name: Build on macOS
 on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
-      - name: Install jq tool
+      - name: Install GitHub CLI
         run: |
-          sudo apt-get update
-          sudo apt-get install jq
+          brew update
+          brew install gh
+      - name: Install Microsoft Edge
+        run: |
+          brew update
+          brew install --cask microsoft-edge
