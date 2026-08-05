@@ -1,17 +1,8 @@
 name: Build on macOS
 on: push
-
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v6
-      - name: Install GitHub CLI
-        run: |
-          brew update
-          brew install gh
-      - name: Install Microsoft Edge
-        run: |
-          brew update
-          brew install --cask microsoft-edge
+      - run: choco install gh
+      - run: gh version
